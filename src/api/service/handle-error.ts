@@ -1,10 +1,9 @@
-import type { AxiosError } from "axios"
 import { toast } from "sonner"
 
 export class ApiError extends Error {
   message: string
   status: number
-  errors: TMessageError[]
+  // errors: TMessageError[]
   data?: NonNullable<unknown>
 
   constructor(
@@ -38,13 +37,13 @@ export class ApiErrorForm extends Error {
 
 export type TApiError = ApiError | ApiErrorForm
 
-export const HandleResponseError = (
-  error: AxiosError<{
-    message: string | TMessageError[]
-    data: NonNullable<unknown>
-  }>
-) => {
-  toast.error("Internet Server Error")
+export const HandleResponseError = () =>
+  // error: AxiosError<{
+  //   message: string | TMessageError[]
+  //   data: NonNullable<unknown>
+  // }>
+  {
+    toast.error("Internet Server Error")
 
-  throw new ApiError("Unknown", 400)
-}
+    throw new ApiError("Unknown", 400)
+  }
