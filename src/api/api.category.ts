@@ -4,6 +4,7 @@ import qs from "query-string"
 import type {
   TCategoryResponse,
   TCreateCategoryPayload,
+  TPublishCategoryPayload,
   TUpdateCategoryPayload,
 } from "@/types/category.type.ts"
 
@@ -31,5 +32,13 @@ export const createCategory = (data: TCreateCategoryPayload) => {
 
 export const updateCategory = (id: string, payload: TUpdateCategoryPayload) => {
   const route = REST_API_CATEGORY.UPDATE.uri.replace(":id", id)
+  return HttpService.patch(route, payload)
+}
+
+export const publishCategory = (
+  id: string,
+  payload: TPublishCategoryPayload
+) => {
+  const route = REST_API_CATEGORY.PUBLISHED.uri.replace(":id", id)
   return HttpService.patch(route, payload)
 }

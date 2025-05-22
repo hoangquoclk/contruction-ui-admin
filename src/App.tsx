@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom"
 import Layout from "@/components/Layout"
 import BlogList from "@/pages/blog/blog-list.tsx"
 import BlogEditor from "@/pages/blog/blog-editor"
@@ -14,7 +19,7 @@ export default function App() {
         {/*<Route path="/login" element={<Login />} />*/}
 
         <Route path="/" element={<Layout />}>
-          {/*<Route index element={<Navigate to="/dashboard" replace />} />*/}
+          <Route index element={<Navigate to="/blogs" replace />} />
           {/*<Route path="dashboard" element={<Dashboard />} />*/}
 
           {/* Blog routes */}

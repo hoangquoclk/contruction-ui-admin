@@ -11,22 +11,22 @@ import {
 } from "@/components/ui/alert-dialog.tsx"
 import { Button } from "@/components/ui/button.tsx"
 import { Trash2 } from "lucide-react"
+import type { TCategoryResponse } from "@/types/category.type.ts"
+import { useDeleteCategory } from "@/hooks/category.ts"
 import { toast } from "sonner"
-import type { TPostResponse } from "@/types/post.type.ts"
-import { useDeletePost } from "@/hooks/post.ts"
 
 type TActionProsp = {
-  post: TPostResponse
+  category: TCategoryResponse
 }
 
-export const Action = ({ post }: TActionProsp) => {
-  const { mutateAsync: deletePost } = useDeletePost()
+export const DeleteCategoryBtn = ({ category }: TActionProsp) => {
+  const { mutateAsync: deleteCategory } = useDeleteCategory()
 
   const handleDelete = async (id: string) => {
     try {
-      await deletePost(id)
+      await deleteCategory(id)
     } catch (error) {
-      toast.error("Failed to delete post. Please try again.")
+      toast.error("Failed to delete category. Please try again.")
     }
   }
 
@@ -37,7 +37,7 @@ export const Action = ({ post }: TActionProsp) => {
           variant="outline"
           size="icon"
           className="text-destructive hover:bg-destructive/10"
-          title="Xóa bài viết"
+          title="Xóa danh mục"
         >
           <Trash2 className="size-4" />
         </Button>
@@ -46,7 +46,7 @@ export const Action = ({ post }: TActionProsp) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Xác nhận xóa danh mục</AlertDialogTitle>
           <AlertDialogDescription>
-            Bạn có chắc chắn muốn xóa danh mục "{post.title}"? Hành động này
+            Bạn có chắc chắn muốn xóa danh mục "{category.name}"? Hành động này
             không thể hoàn tác.
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -54,7 +54,7 @@ export const Action = ({ post }: TActionProsp) => {
           <AlertDialogCancel>Hủy</AlertDialogCancel>
           <AlertDialogAction
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            onClick={() => handleDelete(post.id)}
+            onClick={() => handleDelete(category.id)}
           >
             Xóa
           </AlertDialogAction>

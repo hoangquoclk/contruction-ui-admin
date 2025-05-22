@@ -19,6 +19,10 @@ export const REST_API_CATEGORY = {
     uri: "categories/:id",
     method: "PATCH",
   },
+  PUBLISHED: {
+    uri: "categories/:id",
+    method: "PATCH",
+  },
 }
 
 export const REST_API_POST = {

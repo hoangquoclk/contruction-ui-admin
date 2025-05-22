@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Edit, Eye, EyeOff, Plus, Search } from "lucide-react"
+import { Edit, Plus, Search } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/table"
 import { useGetCategories } from "@/hooks/category.ts"
 import { Badge } from "@/components/ui/badge"
-import { Action } from "@/pages/category/Action.tsx"
+import { DeleteCategoryBtn } from "@/pages/category/components/DeleteCategoryBtn.tsx"
+import { PublishCategoryBtn } from "@/pages/category/components/PublishCategoryBtn.tsx"
 
 export default function CategoryList() {
   const { data: categories, isFetching } = useGetCategories()
@@ -75,7 +76,6 @@ export default function CategoryList() {
                         <Badge
                           variant={category.published ? "default" : "secondary"}
                           className="cursor-pointer"
-                          // onClick={() => togglePublished(category)}
                         >
                           {category.published ? "Đã xuất bản" : "Ẩn"}
                         </Badge>
@@ -89,22 +89,7 @@ export default function CategoryList() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            // onClick={() => togglePublished(category)}
-                            title={
-                              category.published
-                                ? "Ẩn danh mục"
-                                : "Xuất bản danh mục"
-                            }
-                          >
-                            {category.published ? (
-                              <EyeOff className="size-4" />
-                            ) : (
-                              <Eye className="size-4" />
-                            )}
-                          </Button>
+                          <PublishCategoryBtn category={category} />
                           <Link to={`/categories/edit/${category.id}`}>
                             <Button
                               variant="outline"
@@ -114,7 +99,7 @@ export default function CategoryList() {
                               <Edit className="size-4" />
                             </Button>
                           </Link>
-                          <Action category={category} />
+                          <DeleteCategoryBtn category={category} />
                         </div>
                       </TableCell>
                     </TableRow>

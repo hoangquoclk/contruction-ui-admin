@@ -12,38 +12,18 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { Edit, Eye, EyeOff, Plus, Search } from "lucide-react"
-import { toast } from "sonner"
-import { useDeletePost, useGetPosts, usePublishedPost } from "@/hooks/post.ts"
+import { Edit, Plus, Search } from "lucide-react"
+import { useGetPosts } from "@/hooks/post.ts"
 import { get } from "lodash"
-import { ModalDeleteConfirm } from "@/pages/blog/ModalDeleteConfirm"
-import { Action } from "@/pages/blog/FormValues/Action.tsx"
+import { DeleteBlogBtn } from "@/pages/blog/components/DeleteBLogBtn.tsx"
+import { PublishBlogBtn } from "@/pages/blog/components/PublishBLogBtn.tsx"
 
 export default function BlogList() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [openModal, setOpenModal] = useState(false)
   const { data: posts, isPending: isLoadingPost } = useGetPosts()
-  const { mutateAsync: deletePost } = useDeletePost()
-  const { mutateAsync: publishPost } = usePublishedPost()
-  const [id, setId] = useState("")
-
-  const handleDelete = async () => {
-    try {
-      await deletePost(id)
-      setOpenModal(false)
-      setId("")
-    } catch (error) {
-      toast.error("Failed to delete blog. Please try again.")
-    }
-  }
 
   return (
     <div className="space-y-6">
-      <ModalDeleteConfirm
-        open={openModal}
-        onOpenChange={setOpenModal}
-        onDelete={handleDelete}
-      />
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Quản lý bài viết</h1>
         <Link to="/blogs/new">
@@ -119,38 +99,7 @@ export default function BlogList() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => {}}
-                            title={
-                              blog.published
-                                ? "Ẩn bài viết"
-                                : "Xuất bản bài viết"
-                            }
-                          >
-                            {blog.published ? (
-                              <EyeOff
-                                className="size-4"
-                                onClick={() =>
-                                  publishPost({
-                                    id: blog.id,
-                                    payload: { published: false },
-                                  })
-                                }
-                              />
-                            ) : (
-                              <Eye
-                                className="size-4"
-                                onClick={() =>
-                                  publishPost({
-                                    id: blog.id,
-                                    payload: { published: true },
-                                  })
-                                }
-                              />
-                            )}
-                          </Button>
+                          <PublishBlogBtn post={blog} />
                           <Link to={`/blogs/edit/${blog.id}`}>
                             <Button
                               variant="outline"
@@ -160,7 +109,7 @@ export default function BlogList() {
                               <Edit className="size-4" />
                             </Button>
                           </Link>
-                          <Action post={blog} />
+                          <DeleteBlogBtn post={blog} />
                         </div>
                       </TableCell>
                     </TableRow>

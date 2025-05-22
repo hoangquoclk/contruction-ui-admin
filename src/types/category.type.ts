@@ -14,3 +14,5 @@ export type TCategoryResponse = {
   createdAt: boolean
   updatedAt: boolean
 }
+
+export type TPublishCategoryPayload = Pick<TUpdateCategoryPayload, "published">

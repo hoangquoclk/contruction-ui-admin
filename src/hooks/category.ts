@@ -6,14 +6,17 @@ import {
   deleteCategory,
   getCategories,
   getCategoryById,
+  publishCategory,
   updateCategory,
 } from "@/api/api.category.ts"
 import type {
   TCategoryResponse,
   TCreateCategoryPayload,
+  TPublishCategoryPayload,
   TUpdateCategoryPayload,
 } from "@/types/category.type.ts"
 import { toast } from "sonner"
+import { queryClient } from "@/main.tsx"
 
 export const useGetCategories = (
   params?: Record<string, any>,
@@ -71,6 +74,27 @@ export const useUpdateCategory = () => {
     }) => updateCategory(id, payload),
     onSuccess: () => {
       toast.success("Danh mục đã được cập nhật thành công.")
+    },
+  })
+}
+
+export const usePublishCategory = () => {
+  return useMutation({
+    mutationKey: [REST_API_CATEGORY.PUBLISHED],
+    mutationFn: ({
+      id,
+      payload,
+    }: {
+      id: string
+      payload: TPublishCategoryPayload
+    }) => publishCategory(id, payload),
+    onSuccess: (_, variables) => {
+      if (!variables.payload.published) {
+        toast.success("Danh mục đã được chuyển về thành bản nháp.")
+      } else {
+        toast.success("Danh mục đã được xuất bản thành công.")
+      }
+      queryClient.invalidateQueries({ queryKey: [REST_API_CATEGORY.LIST] })
     },
   })
 }

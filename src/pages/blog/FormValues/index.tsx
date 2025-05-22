@@ -38,8 +38,8 @@ import { blogFormSchema } from "./FormValues.config"
 import { useGetCategories } from "@/hooks/category.ts"
 import { useCreatePost, useGetPostById, useUpdatePost } from "@/hooks/post.ts"
 import { toast } from "sonner"
-import { omit } from "lodash"
 import { Switch } from "@/components/ui/switch.tsx"
+import { omit } from "lodash"
 
 export const FormValues = () => {
   const { id } = useParams()
@@ -63,9 +63,9 @@ export const FormValues = () => {
   const form = useForm<BlogFormValues>({
     resolver: zodResolver(blogFormSchema),
     defaultValues: {
-      title: "",
-      slug: "",
-      description: "",
+      title: "hoioasod",
+      slug: "hoioasod",
+      description: "hoioasod hoioasod",
       content: "",
       categoryId: "",
       published: false,
