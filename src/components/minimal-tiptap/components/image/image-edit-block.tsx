@@ -3,6 +3,8 @@ import type { Editor } from "@tiptap/react"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { useUploadImage } from "@/hooks/image.ts"
+import { BASE_URL } from "@/constants/map-env.ts"
 
 interface ImageEditBlockProps {
   editor: Editor
@@ -15,6 +17,7 @@ export const ImageEditBlock: React.FC<ImageEditBlockProps> = ({
 }) => {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
   const [link, setLink] = React.useState("")
+  const { mutateAsync: uploadImage } = useUploadImage()
 
   const handleClick = React.useCallback(() => {
     fileInputRef.current?.click()
@@ -25,18 +28,16 @@ export const ImageEditBlock: React.FC<ImageEditBlockProps> = ({
       const files = e.target.files
       if (!files?.length) return
 
-      const insertImages = async () => {
-        const contentBucket = []
-        const filesArray = Array.from(files)
-
-        for (const file of filesArray) {
-          contentBucket.push({ src: file })
-        }
-
-        editor.commands.setImages(contentBucket)
+      const formData = new FormData()
+      for (let i = 0; i < files.length; i++) {
+        formData.append("file", files[i])
       }
 
-      await insertImages()
+      const response = await uploadImage({
+        formData,
+      })
+
+      editor.commands.setImages([{ src: `${BASE_URL}${response?.data?.url}` }])
       close()
     },
     [editor, close]

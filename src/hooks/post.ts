@@ -9,7 +9,6 @@ import {
   getPostsByCategory,
   publishedPost,
   updatePost,
-  uploadPost,
 } from "@/api/api.post"
 import type {
   TCreatePostPayload,
@@ -122,12 +121,5 @@ export const usePublishedPost = () => {
       }
       queryClient.invalidateQueries({ queryKey: [REST_API_POST.LIST] })
     },
-  })
-}
-
-export const useUploadPost = () => {
-  return useMutation({
-    mutationKey: [REST_API_POST.UPLOAD],
-    mutationFn: (formData: FormData) => uploadPost(formData),
   })
 }

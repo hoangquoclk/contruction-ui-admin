@@ -1,8 +1,9 @@
 import type { AxiosInstance } from "axios"
 import axios from "axios"
+import { API_URL } from "@/constants/map-env.ts"
 
 export const InstanceAxios: AxiosInstance = axios.create({
-  baseURL: "http://api.kientrucnetdepviet.vn/v1",
+  baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
   },

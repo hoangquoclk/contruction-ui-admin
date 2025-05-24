@@ -11,14 +11,23 @@ import NotFound from "@/pages/NotFound"
 import CategoryList from "@/pages/category/CategoryList"
 import CategoryEditor from "@/pages/category/CategoryEditor"
 import ImageLibrary from "@/pages/media/ImageLibrary.tsx"
+import Login from "@/pages/auth/Login.tsx"
+import ProtectedRoute from "@/components/ProtectedRoute.tsx"
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        {/*<Route path="/login" element={<Login />} />*/}
+        <Route path="/login" element={<Login />} />
 
-        <Route path="/" element={<Layout />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Navigate to="/blogs" replace />} />
           {/*<Route path="dashboard" element={<Dashboard />} />*/}
 

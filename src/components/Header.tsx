@@ -9,9 +9,27 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button.tsx"
+import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
 
 export default function Header() {
   const { setTheme: setMode, resolvedTheme: mode } = useTheme()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    // Clear authentication data
+    localStorage.removeItem("isAuthenticated")
+    localStorage.removeItem("userEmail")
+    localStorage.removeItem("loginTime")
+
+    // Show logout message
+    toast.success("Đăng xuất thành công", {
+      description: "Hẹn gặp lại bạn!",
+    })
+
+    // Navigate to login
+    navigate("/login")
+  }
 
   return (
     <header className="sticky top-0 z-10 w-full border-b bg-background">
@@ -41,10 +59,7 @@ export default function Header() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

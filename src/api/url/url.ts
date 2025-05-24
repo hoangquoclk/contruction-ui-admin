@@ -46,10 +46,6 @@ export const REST_API_POST = {
     uri: "posts",
     method: "POST",
   },
-  UPLOAD: {
-    uri: "posts/upload",
-    method: "POST",
-  },
   UPDATE: {
     uri: "posts/:id",
     method: "PATCH",
@@ -57,5 +53,16 @@ export const REST_API_POST = {
   PUBLISHED: {
     uri: "posts/:id",
     method: "PATCH",
+  },
+}
+
+export const REST_API_IMAGE = {
+  UPLOAD: {
+    uri: "posts/upload",
+    method: "POST",
+  },
+  LIST: {
+    uri: "posts/images",
+    method: "GET",
   },
 }

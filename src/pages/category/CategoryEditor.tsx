@@ -31,7 +31,6 @@ import {
   useGetCategoryById,
   useUpdateCategory,
 } from "@/hooks/category.ts"
-import { blogFormSchema } from "@/pages/blog/FormValues/FormValues.config.ts"
 import { omit } from "lodash"
 
 // Define the form validation schema with Zod
@@ -82,7 +81,7 @@ export default function CategoryEditor() {
 
   useEffect(() => {
     if (isSuccess) {
-      form.reset(blogFormSchema.safeParse(category)?.data)
+      form.reset(categoryFormSchema.safeParse(category)?.data)
     }
   }, [form, isSuccess, category])
 
@@ -134,7 +133,7 @@ export default function CategoryEditor() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card>
+          <Card className="bg-background">
             <CardHeader>
               <CardTitle>Thông tin danh mục</CardTitle>
             </CardHeader>

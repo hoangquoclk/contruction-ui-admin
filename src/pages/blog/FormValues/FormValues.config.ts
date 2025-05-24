@@ -22,6 +22,7 @@ export const blogFormSchema = z.object({
     z.string({ required_error: "Vui lòng chọn danh mục" })
   ),
   published: z.boolean().default(false),
+  thumbnail: z.string().or(z.literal("")).optional(),
 })
 
 // Infer the type from the schema

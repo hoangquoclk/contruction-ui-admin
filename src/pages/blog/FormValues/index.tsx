@@ -63,9 +63,10 @@ export const FormValues = () => {
   const form = useForm<BlogFormValues>({
     resolver: zodResolver(blogFormSchema),
     defaultValues: {
-      title: "hoioasod",
-      slug: "hoioasod",
-      description: "hoioasod hoioasod",
+      title: "",
+      slug: "",
+      thumbnail: "",
+      description: "",
       content: "",
       categoryId: "",
       published: false,
@@ -110,7 +111,7 @@ export const FormValues = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card>
+        <Card className="bg-background">
           <CardHeader>
             <CardTitle>Thông tin bài viết</CardTitle>
           </CardHeader>
@@ -178,6 +179,28 @@ export const FormValues = () => {
                   <FormDescription>
                     Slug sẽ được sử dụng trong URL của bài viết. Ví dụ:
                     /blogs/slug-bai-viet
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Thumbnail Field */}
+            <FormField
+              control={form.control}
+              name="thumbnail"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Thumbnail URL</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="https://example.com/image.jpg"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Nhập URL hình ảnh để làm thumbnail cho bài viết (không bắt
+                    buộc)
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

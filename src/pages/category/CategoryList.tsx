@@ -17,10 +17,12 @@ import { useGetCategories } from "@/hooks/category.ts"
 import { Badge } from "@/components/ui/badge"
 import { DeleteCategoryBtn } from "@/pages/category/components/DeleteCategoryBtn.tsx"
 import { PublishCategoryBtn } from "@/pages/category/components/PublishCategoryBtn.tsx"
+import { useSearchList } from "@/hooks/useSearchList.ts"
 
 export default function CategoryList() {
   const { data: categories, isFetching } = useGetCategories()
   const [searchTerm, setSearchTerm] = useState("")
+  const filterList = useSearchList({ searchTerm, list: categories })
 
   return (
     <div className="space-y-6">
@@ -34,7 +36,7 @@ export default function CategoryList() {
         </Link>
       </div>
 
-      <Card>
+      <Card className="bg-background">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Danh sách danh mục</CardTitle>
           <div className="relative w-64">
@@ -65,8 +67,8 @@ export default function CategoryList() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {categories && categories.length > 0 ? (
-                  categories.map((category) => (
+                {filterList && filterList.length > 0 ? (
+                  filterList.map((category) => (
                     <TableRow key={category.id}>
                       <TableCell className="font-medium">
                         {category.name}

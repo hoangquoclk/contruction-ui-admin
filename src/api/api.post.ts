@@ -45,12 +45,6 @@ export const createPost = (data: TCreatePostPayload) => {
   return HttpService.post(REST_API_POST.CREATE.uri, data)
 }
 
-export const uploadPost = (formData: FormData) => {
-  return HttpService.post(REST_API_POST.UPLOAD.uri, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  })
-}
-
 export const updatePost = (id: string, data: TUpdatePostPayload) => {
   const route = REST_API_POST.UPDATE.uri.replace(":id", id)
   return HttpService.patch(route, data)

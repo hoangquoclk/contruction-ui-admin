@@ -13,7 +13,7 @@ export default function Dashboard() {
       <h1 className="text-3xl font-bold">Dashboard</h1>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <Card>
+        <Card className="bg-background">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Blogs</CardTitle>
             <FileText className="size-4 text-gray-500" />
@@ -24,7 +24,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-background">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Views</CardTitle>
             <TrendingUp className="size-4 text-gray-500" />
@@ -35,7 +35,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-background">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Active Users</CardTitle>
             <Users className="size-4 text-gray-500" />
@@ -47,7 +47,7 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="bg-background">
         <CardHeader>
           <CardTitle>Recent Activity</CardTitle>
           <CardDescription>Your recent blog activities</CardDescription>

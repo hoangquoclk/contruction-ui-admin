@@ -22,9 +22,9 @@ export default function Sidebar() {
   ]
 
   return (
-    <aside className="w-64 border-r border-gray-200 bg-white">
+    <aside className="w-64 border-r border-gray-200 bg-background">
       <div className="p-6">
-        <h1 className="text-2xl font-bold text-gray-800">Admin Panel</h1>
+        <h1 className="text-2xl font-bold">Admin Panel</h1>
       </div>
       <nav className="mt-6">
         <ul>
@@ -33,8 +33,10 @@ export default function Sidebar() {
               <NavLink
                 to={item.to}
                 className={({ isActive }) =>
-                  `flex items-center rounded-lg px-4 py-3 text-gray-700 ${
-                    isActive ? "bg-gray-100 font-medium" : "hover:bg-gray-50"
+                  `flex items-center rounded-lg px-4 py-3 ${
+                    isActive
+                      ? "bg-gray-100 font-medium dark:bg-gray-800"
+                      : "hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`
                 }
               >

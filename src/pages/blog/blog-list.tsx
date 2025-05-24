@@ -17,10 +17,16 @@ import { useGetPosts } from "@/hooks/post.ts"
 import { get } from "lodash"
 import { DeleteBlogBtn } from "@/pages/blog/components/DeleteBLogBtn.tsx"
 import { PublishBlogBtn } from "@/pages/blog/components/PublishBLogBtn.tsx"
+import { useSearchList } from "@/hooks/useSearchList.ts"
 
 export default function BlogList() {
   const [searchTerm, setSearchTerm] = useState("")
   const { data: posts, isPending: isLoadingPost } = useGetPosts()
+  const filterList = useSearchList({
+    searchTerm,
+    list: posts?.data,
+    keys: ["title"],
+  })
 
   return (
     <div className="space-y-6">
@@ -34,7 +40,7 @@ export default function BlogList() {
         </Link>
       </div>
 
-      <Card>
+      <Card className="bg-background">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Danh sách bài viết</CardTitle>
           <div className="relative w-64">
@@ -66,8 +72,8 @@ export default function BlogList() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {posts && posts?.data?.length > 0 ? (
-                  posts?.data?.map((blog) => (
+                {filterList && filterList?.length > 0 ? (
+                  filterList?.map((blog) => (
                     <TableRow key={blog.id}>
                       <TableCell className="font-medium">
                         <div className="max-w-xs truncate">{blog.title}</div>

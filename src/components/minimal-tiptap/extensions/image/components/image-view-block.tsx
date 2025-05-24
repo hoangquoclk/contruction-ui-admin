@@ -1,5 +1,5 @@
 import * as React from "react"
-import { NodeViewWrapper, type NodeViewProps } from "@tiptap/react"
+import { type NodeViewProps, NodeViewWrapper } from "@tiptap/react"
 import type { ElementDimensions } from "../hooks/use-drag-resize"
 import { useDragResize } from "../hooks/use-drag-resize"
 import { ResizeHandle } from "./resize-handle"
@@ -126,8 +126,8 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
         imageLoaded: true,
       }))
       updateAttributes({
-        width: img.width || newNaturalSize.width,
-        height: img.height || newNaturalSize.height,
+        width: newNaturalSize.width || img.width,
+        height: newNaturalSize.height || img.height,
         alt: img.alt,
         title: img.title,
       })
