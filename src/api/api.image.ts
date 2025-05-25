@@ -1,6 +1,7 @@
 import { HttpService } from "@/api/service/http-service.ts"
 import { REST_API_IMAGE } from "@/api/url/url.ts"
 import type { TResponseUpload, TUploadFileItem } from "@/types/image.type.ts"
+import { generatePath } from "react-router"
 
 export const uploadImage = (
   formData: FormData,
@@ -24,4 +25,9 @@ export const uploadImage = (
 
 export const getImages = () => {
   return HttpService.get<TUploadFileItem[]>(REST_API_IMAGE.LIST.uri)
+}
+
+export const deleteImage = (id: string) => {
+  const route = generatePath(REST_API_IMAGE.DELETE.uri, { id })
+  return HttpService.delete(route)
 }

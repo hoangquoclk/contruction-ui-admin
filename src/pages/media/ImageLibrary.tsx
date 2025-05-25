@@ -35,7 +35,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useGetImages, useUploadImage } from "@/hooks/image.ts"
+import { useDeleteImage, useGetImages, useUploadImage } from "@/hooks/image.ts"
 import { BASE_URL } from "@/constants/map-env.ts"
 import type { TUploadFileItem } from "@/types/image.type.ts"
 import { useSearchList } from "@/hooks/useSearchList.ts"
@@ -51,6 +51,7 @@ export default function ImageLibrary() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const { mutateAsync: uploadImage, isPending: uploading } = useUploadImage()
   const { data: imageList, isFetching: isLoadingList } = useGetImages()
+  const { mutate: deleteImage } = useDeleteImage()
 
   const filterList = useSearchList({
     searchTerm,
@@ -177,32 +178,35 @@ export default function ImageLibrary() {
                             <Copy className="size-4" />
                           )}
                         </Button>
-                        {/*<AlertDialog>*/}
-                        {/*  <AlertDialogTrigger asChild>*/}
-                        {/*    <Button*/}
-                        {/*      variant="destructive"*/}
-                        {/*      size="icon"*/}
-                        {/*      className="size-8"*/}
-                        {/*    >*/}
-                        {/*      <Trash2 className="size-4" />*/}
-                        {/*    </Button>*/}
-                        {/*  </AlertDialogTrigger>*/}
-                        {/*  <AlertDialogContent>*/}
-                        {/*    <AlertDialogHeader>*/}
-                        {/*      <AlertDialogTitle>Xác nhận xóa</AlertDialogTitle>*/}
-                        {/*      <AlertDialogDescription>*/}
-                        {/*        Bạn có chắc chắn muốn xóa hình ảnh này? Hành*/}
-                        {/*        động này không thể hoàn tác.*/}
-                        {/*      </AlertDialogDescription>*/}
-                        {/*    </AlertDialogHeader>*/}
-                        {/*    <AlertDialogFooter>*/}
-                        {/*      <AlertDialogCancel>Hủy</AlertDialogCancel>*/}
-                        {/*      <AlertDialogAction className="bg-destructive text-destructive-foreground hover:bg-destructive/90">*/}
-                        {/*        Xóa*/}
-                        {/*      </AlertDialogAction>*/}
-                        {/*    </AlertDialogFooter>*/}
-                        {/*  </AlertDialogContent>*/}
-                        {/*</AlertDialog>*/}
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant="destructive"
+                              size="icon"
+                              className="size-8"
+                            >
+                              <Trash2 className="size-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Xác nhận xóa</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Bạn có chắc chắn muốn xóa hình ảnh này? Hành
+                                động này không thể hoàn tác.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Hủy</AlertDialogCancel>
+                              <AlertDialogAction
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                onClick={() => deleteImage(item.id)}
+                              >
+                                Xóa
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
                       <div className="absolute inset-x-0 bottom-0 truncate bg-black/70 p-1 text-xs text-white">
                         {item.filename}
@@ -270,32 +274,35 @@ export default function ImageLibrary() {
                             <Copy className="size-4" />
                           )}
                         </Button>
-                        {/*<AlertDialog>*/}
-                        {/*  <AlertDialogTrigger asChild>*/}
-                        {/*    <Button*/}
-                        {/*      variant="outline"*/}
-                        {/*      size="icon"*/}
-                        {/*      className="size-8 text-destructive hover:bg-destructive/10"*/}
-                        {/*    >*/}
-                        {/*      <Trash2 className="size-4" />*/}
-                        {/*    </Button>*/}
-                        {/*  </AlertDialogTrigger>*/}
-                        {/*  <AlertDialogContent>*/}
-                        {/*    <AlertDialogHeader>*/}
-                        {/*      <AlertDialogTitle>Xác nhận xóa</AlertDialogTitle>*/}
-                        {/*      <AlertDialogDescription>*/}
-                        {/*        Bạn có chắc chắn muốn xóa hình ảnh này? Hành*/}
-                        {/*        động này không thể hoàn tác.*/}
-                        {/*      </AlertDialogDescription>*/}
-                        {/*    </AlertDialogHeader>*/}
-                        {/*    <AlertDialogFooter>*/}
-                        {/*      <AlertDialogCancel>Hủy</AlertDialogCancel>*/}
-                        {/*      <AlertDialogAction className="bg-destructive text-destructive-foreground hover:bg-destructive/90">*/}
-                        {/*        Xóa*/}
-                        {/*      </AlertDialogAction>*/}
-                        {/*    </AlertDialogFooter>*/}
-                        {/*  </AlertDialogContent>*/}
-                        {/*</AlertDialog>*/}
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              className="size-8 text-destructive hover:bg-destructive/10"
+                            >
+                              <Trash2 className="size-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Xác nhận xóa</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Bạn có chắc chắn muốn xóa hình ảnh này? Hành
+                                động này không thể hoàn tác.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Hủy</AlertDialogCancel>
+                              <AlertDialogAction
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                onClick={() => deleteImage(item.id)}
+                              >
+                                Xóa
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
                     </div>
                   ))}

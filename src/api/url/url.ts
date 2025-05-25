@@ -65,4 +65,8 @@ export const REST_API_IMAGE = {
     uri: "posts/images",
     method: "GET",
   },
+  DELETE: {
+    uri: "posts/images/:id",
+    method: "DELETE",
+  },
 }

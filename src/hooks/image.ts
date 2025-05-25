@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { REST_API_IMAGE } from "@/api/url/url.ts"
-import { getImages, uploadImage } from "@/api/api.image.ts"
+import { deleteImage, getImages, uploadImage } from "@/api/api.image.ts"
 import { toast } from "sonner"
 import { queryClient } from "@/main.tsx"
 
@@ -26,5 +26,16 @@ export const useGetImages = () => {
   return useQuery({
     queryKey: [REST_API_IMAGE.LIST],
     queryFn: getImages,
+  })
+}
+
+export const useDeleteImage = () => {
+  return useMutation({
+    mutationKey: [REST_API_IMAGE.DELETE],
+    mutationFn: (id: string) => deleteImage(id),
+    onSuccess: () => {
+      toast.success("Image deleted successfully.")
+      queryClient.invalidateQueries({ queryKey: [REST_API_IMAGE.LIST] })
+    },
   })
 }
