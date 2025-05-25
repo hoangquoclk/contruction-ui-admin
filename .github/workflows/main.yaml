@@ -11,17 +11,17 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 14.x, 16.x, 18.x ]
+        node-version: 18
 
     steps:
       - name: Checkout Code 🚚
         uses: actions/checkout@v3
 
       - name: Install Dependencies 📦
-        run: pnpm install
+        run: npm install
 
       - name: Build React App (depending on user app) 🏗️
-        run: pnpm run build
+        run: npm run build
 
       - name: Upload to cPanel 📂
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
